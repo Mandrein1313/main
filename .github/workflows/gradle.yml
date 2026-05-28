@@ -1,4 +1,28 @@
-steps:
+name: Android CI
+
+on:
+  push:
+    branches-ignore:
+      - 'renovate/*'
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - '.github/**'
+      - '.idea/**'
+      - '!.github/workflows/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build debug APK
+    runs-on: ubuntu-latest
+    env:
+      SIGNING_STORE_BIN: ${{ secrets.SIGNING_STORE_BIN }}
+      SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+      SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+    steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.13.1
         with:
@@ -7,7 +31,7 @@ steps:
       - name: Checkout Repository with Submodules
         uses: actions/checkout@v6
         with:
-          submodules: recursive      # สำคัญมาก
+          submodules: recursive
           fetch-depth: 0
 
       - name: Setup Android SDK, NDK and CMake
