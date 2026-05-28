@@ -1,8 +1,3 @@
-/*******************************************************************************
- *    sora-editor - the awesome code editor for Android
- *    https://github.com/Rosemoe/sora-editor
- ******************************************************************************/
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.publish)
@@ -26,17 +21,14 @@ android {
         }
     }
 
-    // ==================== ส่วน NDK + CMake ====================
     ndkVersion = "29.0.14206865"
 
     externalNativeBuild {
         cmake {
-            path = "src/main/cpp/CMakeLists.txt"   // ใช้ String
+            path = file("src/main/cpp/CMakeLists.txt")
             version = "3.31.5"
         }
     }
-    // =======================================================
-
 }
 
 dependencies {
