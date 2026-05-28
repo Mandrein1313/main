@@ -28,11 +28,14 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout Repository with Submodules
+      - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Update Git Submodules
+        run: git submodule update --init --recursive
 
       - name: Setup Android SDK, NDK and CMake
         uses: android-actions/setup-android@v3
